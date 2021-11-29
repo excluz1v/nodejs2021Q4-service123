@@ -26,4 +26,17 @@ const updateUserById = async (id, userCredentials) => {
   return updatedUser;
 };
 
-module.exports = { getAll, postUser, getUserById, updateUserById };
+const deleteUserById = async (id) => {
+  const isExist = await getUserById(id);
+  if (isExist === undefined) return false;
+  users = await users.filter((user) => user.id !== id);
+  return true;
+};
+
+module.exports = {
+  getAll,
+  postUser,
+  getUserById,
+  updateUserById,
+  deleteUserById,
+};

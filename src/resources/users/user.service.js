@@ -20,4 +20,9 @@ const putUser = async (id, userCredentials) => {
   return User.toResponse(updatedUser);
 };
 
-module.exports = { getAll, postUser, getUserById, putUser };
+const deleteUserById = async (id) => {
+  const result = await usersRepo.deleteUserById(id);
+  return result;
+};
+
+module.exports = { getAll, postUser, getUserById, putUser, deleteUserById };

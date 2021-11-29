@@ -82,4 +82,19 @@ const putUserOpts = {
     },
   },
 };
-module.exports = { getUserOpts, postUserOpts, getUserByIdOpts, putUserOpts };
+
+// Options for DELETE users/:userId
+const deleteUserByIdOpts = {
+  schema: {
+    response: {
+      204: {},
+    },
+  },
+};
+module.exports = {
+  getUserOpts,
+  postUserOpts,
+  getUserByIdOpts,
+  putUserOpts,
+  deleteUserByIdOpts,
+};
