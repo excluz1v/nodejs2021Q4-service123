@@ -19,7 +19,7 @@ async function userRoutes(fastify, options, done) {
     const { body } = req;
 
     const userInfo = await usersService.postUser(body);
-    res.send(userInfo);
+    res.status(201).send(userInfo);
   });
 
   fastify.put('/users/:userId', schemas.putUserOpts, async (req, res) => {
@@ -30,16 +30,12 @@ async function userRoutes(fastify, options, done) {
     res.send(userInfo);
   });
 
-  fastify.delete(
-    '/users/:userId',
-    schemas.getUserByIdOpts,
-    async (req, res) => {
-      const { userId } = req.params;
-      const result = await usersService.deleteUserById(userId);
-      if (result === false) res.status(404).send('User not found');
-      res.send('The user has been deleted');
-    }
-  );
+  fastify.delete('/users/:userId', async (req, res) => {
+    const { userId } = req.params;
+    const result = await usersService.deleteUserById(userId);
+    if (result === false) res.status(404).send('User not found');
+    res.status(204);
+  });
 
   done();
 }
