@@ -1,18 +1,22 @@
 const fastify = require('fastify')({ logger: true });
-const swaggerUi = require('fastify-serve-swagger-ui');
+const swagger = require('fastify-swagger');
+const path = require('path');
 const userRoutes = require('./resources/users/user.router');
 const { PORT } = require('./common/config');
 
-fastify.register(userRoutes);
-
-fastify.register(swaggerUi, {
-  // swagger specification which should be exposed
+fastify.register(swagger, {
+  mode: 'static',
+  routePrefix: '/doc',
   specification: {
-    type: 'file',
-    path: './doc/api.yaml',
+    path: path.resolve(__dirname, '../doc/api.yaml'),
+    postProcessor(swaggerObject) {
+      return swaggerObject;
+    },
   },
-  path: 'doc',
+  exposeRoute: true,
 });
+
+fastify.register(userRoutes);
 
 const start = async () => {
   try {

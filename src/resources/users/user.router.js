@@ -12,6 +12,13 @@ async function userRoutes(fastify, options, done) {
 
     res.send(userId);
   });
+
+  fastify.post('/users/:userId', (req, res) => {
+    const { userId } = req.params;
+
+    res.send(userId);
+  });
+
   done();
 }
 
