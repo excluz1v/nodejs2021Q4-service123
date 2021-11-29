@@ -1,11 +1,13 @@
-const users = [
-  {
-    id: 'qwe',
-    name: 'DIma',
-    login: 'bmd',
-  },
-];
+const User = require('./user.model');
+
+let users = [];
 
 const getAll = async () => users;
-// TODO: mock implementation. should be replaced during task development
-module.exports = { getAll };
+
+const postUser = async (user) => {
+  const newUser = new User(user);
+  users = [...users, newUser];
+  return newUser;
+};
+
+module.exports = { getAll, postUser };
