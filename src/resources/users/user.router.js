@@ -17,7 +17,16 @@ async function userRoutes(fastify, options, done) {
 
   fastify.post('/users', schemas.postUserOpts, async (req, res) => {
     const { body } = req;
+
     const userInfo = await usersService.postUser(body);
+    res.send(userInfo);
+  });
+
+  fastify.put('/users/:userId', schemas.putUserOpts, async (req, res) => {
+    const { body } = req;
+    const { userId } = req.params;
+    const userInfo = await usersService.putUser(userId, body);
+    if (userInfo === false) res.status(400).send('User not found');
     res.send(userInfo);
   });
 

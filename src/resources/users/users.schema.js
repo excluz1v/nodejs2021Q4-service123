@@ -57,4 +57,29 @@ const getUserByIdOpts = {
     },
   },
 };
-module.exports = { getUserOpts, postUserOpts, getUserByIdOpts };
+
+// Options for PUT user
+const putUserOpts = {
+  schema: {
+    body: {
+      type: 'object',
+      required: ['name', 'login', 'password'],
+      properties: {
+        name: { type: 'string' },
+        login: { type: 'string' },
+        password: { type: 'string' },
+      },
+    },
+    response: {
+      200: {
+        type: 'object',
+        properties: {
+          id: { type: 'string' },
+          name: { type: 'string' },
+          login: { type: 'string' },
+        },
+      },
+    },
+  },
+};
+module.exports = { getUserOpts, postUserOpts, getUserByIdOpts, putUserOpts };

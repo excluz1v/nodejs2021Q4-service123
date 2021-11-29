@@ -14,4 +14,10 @@ const getUserById = async (id) => {
   return User.toResponse(result);
 };
 
-module.exports = { getAll, postUser, getUserById };
+const putUser = async (id, userCredentials) => {
+  const updatedUser = await usersRepo.updateUserById(id, userCredentials);
+  if (updatedUser === false) return false;
+  return User.toResponse(updatedUser);
+};
+
+module.exports = { getAll, postUser, getUserById, putUser };
