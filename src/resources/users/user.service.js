@@ -10,6 +10,7 @@ const postUser = async (userCredentials) => {
 
 const getUserById = async (id) => {
   const result = await usersRepo.getUserById(id);
+  if (result === undefined) return false;
   return User.toResponse(result);
 };
 

@@ -11,6 +11,7 @@ async function userRoutes(fastify, options, done) {
   fastify.get('/users/:userId', schemas.getUserByIdOpts, async (req, res) => {
     const { userId } = req.params;
     const result = await usersService.getUserById(userId);
+    if (result === false) res.status(400).send('User not found');
     res.send(result);
   });
 
