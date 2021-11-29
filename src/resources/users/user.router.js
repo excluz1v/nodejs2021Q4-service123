@@ -21,13 +21,29 @@ const getUserOpts = {
 };
 
 // Options for POST user
-// const postUserOpts = {
-//   schema: {
-//     body: {
-//       type: 'object',
-//     },
-//   },
-// };
+const postUserOpts = {
+  schema: {
+    body: {
+      type: 'object',
+      required: ['name', 'login', 'password'],
+      properties: {
+        name: { type: 'string' },
+        login: { type: 'string' },
+        password: { type: 'string' },
+      },
+    },
+    response: {
+      201: {
+        type: 'object',
+        properties: {
+          id: { type: 'string' },
+          name: { type: 'string' },
+          login: { type: 'string' },
+        },
+      },
+    },
+  },
+};
 
 async function userRoutes(fastify, options, done) {
   fastify.get('/users', getUserOpts, async (req, res) => {
@@ -41,10 +57,8 @@ async function userRoutes(fastify, options, done) {
     res.send(userId);
   });
 
-  fastify.post('/users/:userId', (req, res) => {
-    const { userId } = req.params;
-
-    res.send(userId);
+  fastify.post('/users', postUserOpts, (req, res) => {
+    res.send(req.body);
   });
 
   done();
