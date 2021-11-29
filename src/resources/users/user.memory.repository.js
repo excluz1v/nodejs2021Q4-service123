@@ -10,4 +10,9 @@ const postUser = async (user) => {
   return newUser;
 };
 
-module.exports = { getAll, postUser };
+const getUserById = async (id) => {
+  const result = await users.find((user) => user.id === id);
+  return result;
+};
+
+module.exports = { getAll, postUser, getUserById };
