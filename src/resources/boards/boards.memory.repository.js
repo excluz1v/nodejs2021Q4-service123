@@ -4,8 +4,8 @@ let boards = [];
 
 const getAll = async () => boards;
 
-const postBoards = async (user) => {
-  const newBoard = new Board(user);
+const postBoards = async (boardData) => {
+  const newBoard = new Board(boardData);
   boards = [...boards, newBoard];
   return newBoard;
 };

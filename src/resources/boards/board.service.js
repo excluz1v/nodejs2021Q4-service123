@@ -1,5 +1,4 @@
 const bordsRepo = require('./boards.memory.repository');
-const Board = require('./board.model');
 
 const getAll = async () => bordsRepo.getAll();
 
@@ -17,7 +16,7 @@ const getBoardById = async (id) => {
 const putBoard = async (id, newBoardInfo) => {
   const updatedBoard = await bordsRepo.updateBoardById(id, newBoardInfo);
   if (updatedBoard === false) return false;
-  return Board.toResponse(updatedBoard);
+  return updatedBoard;
 };
 
 const deleteBoardById = async (id) => {
