@@ -8,6 +8,17 @@ async function boardRoutes(fastify, options, done) {
     res.send(boards);
   });
 
+  fastify.get(
+    '/boards/:boardId',
+    schemas.getBoardByIdOpts,
+    async (req, res) => {
+      const { boardId } = req.params;
+      const result = await boardsService.getBoardById(boardId);
+      if (result === false) res.status(400).send('Board not found');
+      res.send(result);
+    }
+  );
+
   fastify.post('/boards', schemas.postBoardsOpts, async (req, res) => {
     const { body } = req;
 
