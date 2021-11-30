@@ -26,6 +26,21 @@ async function boardRoutes(fastify, options, done) {
     res.status(201).send(boardInfo);
   });
 
+  fastify.put('/boards/:boardId', schemas.putUserOpts, async (req, res) => {
+    const { body } = req;
+    const { boardId } = req.params;
+    const boardInfo = await boardsService.putBoard(boardId, body);
+    if (boardInfo === false) res.status(400).send('Board not found');
+    res.send(boardInfo);
+  });
+
+  fastify.delete('/boards/:boardId', async (req, res) => {
+    const { boardId } = req.params;
+    const result = await boardsService.deleteBoardById(boardId);
+    if (result === false) res.status(404).send('Board not found');
+    res.status(204);
+  });
+
   done();
 }
 
