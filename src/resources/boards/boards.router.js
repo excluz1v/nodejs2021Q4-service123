@@ -7,6 +7,14 @@ async function boardRoutes(fastify, options, done) {
     const boards = await boardsService.getAll();
     res.send(boards);
   });
+
+  fastify.post('/boards', schemas.postBoardsOpts, async (req, res) => {
+    const { body } = req;
+
+    const boardInfo = await boardsService.postBoard(body);
+    res.status(201).send(boardInfo);
+  });
+
   done();
 }
 

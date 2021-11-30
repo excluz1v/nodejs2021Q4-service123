@@ -85,7 +85,7 @@ const putUserOpts = {
 
 module.exports = {
   getBoardsOpts,
-  postUserOpts: postBoardsOpts,
+  postBoardsOpts,
   getBoardByIdOpts,
   putUserOpts,
 };
