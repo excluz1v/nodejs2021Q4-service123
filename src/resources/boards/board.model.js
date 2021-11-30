@@ -11,6 +11,19 @@ class Board {
   static createColumn(ArrOfColumns) {
     return [...ArrOfColumns].map((col) => new Column(col));
   }
+
+  updateColumn(columnId, taskId, taskData) {
+    this.columns = this.columns.map((col) => {
+      if (col.id === columnId) {
+        return col.map((task) => {
+          if (task.id === taskId) return taskData;
+          return task;
+        });
+      }
+      return col;
+    });
+    return this.columns;
+  }
 }
 
 module.exports = Board;
