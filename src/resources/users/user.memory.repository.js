@@ -18,11 +18,7 @@ const getUserById = async (id) => {
 const updateUserById = async (id, userCredentials) => {
   const result = await users.find((user) => user.id === id);
   if (result === undefined) return false;
-  // const userIndex = users.findIndex((user) => user.id === id);
-  // const updatedUser = { ...users[userIndex], ...userCredentials };
-  // const usersCopy = [...users];
-  // usersCopy[userIndex] = updatedUser;
-  // users = usersCopy;
+
   let userIndex;
   users = users.map((user, index) => {
     if (user.id === id) {
@@ -32,7 +28,6 @@ const updateUserById = async (id, userCredentials) => {
     return user;
   });
   return users[userIndex];
-  // return updatedUser;
 };
 
 const deleteUserById = async (id) => {
