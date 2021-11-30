@@ -14,6 +14,10 @@ const getUserById = async (id) => {
   const result = await users.find((user) => user.id === id);
   return result;
 };
+const getUserByLogin = async (login) => {
+  const result = await users.find((user) => user.login === login);
+  return result;
+};
 
 const updateUserById = async (id, userCredentials) => {
   const result = await users.find((user) => user.id === id);
@@ -43,4 +47,5 @@ module.exports = {
   getUserById,
   updateUserById,
   deleteUserById,
+  getUserByLogin,
 };

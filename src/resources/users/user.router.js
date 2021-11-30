@@ -1,14 +1,31 @@
+const { AUTH_MODE } = require('../../common/config');
 const User = require('./user.model');
 const usersService = require('./user.service');
 const schemas = require('./users.schema');
 
+function addAuthValidation(schema, preValidation) {
+  if (AUTH_MODE) {
+    const validatedSchema = { ...schema };
+    validatedSchema.preValidation = preValidation;
+    return validatedSchema;
+  }
+  return schema;
+}
+
 async function userRoutes(fastify, options, done) {
-  fastify.get('/users', schemas.getUserOpts, async (req, res) => {
+  const getUserOpts = addAuthValidation(schemas.getUserOpts, [fastify.auth]);
+  const getUserByIdOpts = addAuthValidation(schemas.getUserByIdOpts, [
+    fastify.auth,
+  ]);
+  const putUserOpts = addAuthValidation(schemas.putUserOpts, [fastify.auth]);
+  const deleteUserOpts = addAuthValidation({}, [fastify.auth]);
+
+  fastify.get('/users', getUserOpts, async (req, res) => {
     const users = await usersService.getAll();
     res.send(users.map(User.toResponse));
   });
 
-  fastify.get('/users/:userId', schemas.getUserByIdOpts, async (req, res) => {
+  fastify.get('/users/:userId', getUserByIdOpts, async (req, res) => {
     const { userId } = req.params;
     const result = await usersService.getUserById(userId);
     if (result === false) res.status(400).send('User not found');
@@ -22,7 +39,7 @@ async function userRoutes(fastify, options, done) {
     res.status(201).send(userInfo);
   });
 
-  fastify.put('/users/:userId', schemas.putUserOpts, async (req, res) => {
+  fastify.put('/users/:userId', putUserOpts, async (req, res) => {
     const { body } = req;
     const { userId } = req.params;
     const userInfo = await usersService.putUser(userId, body);
@@ -30,7 +47,7 @@ async function userRoutes(fastify, options, done) {
     res.send(userInfo);
   });
 
-  fastify.delete('/users/:userId', async (req, res) => {
+  fastify.delete('/users/:userId', deleteUserOpts, async (req, res) => {
     const { userId } = req.params;
     const result = await usersService.deleteUserById(userId);
     if (result === false) res.status(404).send('User not found');

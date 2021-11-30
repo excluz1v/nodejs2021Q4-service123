@@ -2,7 +2,9 @@ const fastify = require('fastify')({ logger: true });
 const swagger = require('fastify-swagger');
 const path = require('path');
 const userRoutes = require('./resources/users/user.router');
-const { PORT } = require('./common/config');
+const fastifyPlugin = require('./resources/login/auth');
+const { AuthRouter } = require('./resources/login/auth.route');
+const { PORT, AUTH_MODE } = require('./common/config');
 
 fastify.register(swagger, {
   mode: 'static',
@@ -15,6 +17,11 @@ fastify.register(swagger, {
   },
   exposeRoute: true,
 });
+
+if (AUTH_MODE) {
+  fastify.register(fastifyPlugin);
+  fastify.register(AuthRouter);
+}
 
 fastify.register(userRoutes);
 
