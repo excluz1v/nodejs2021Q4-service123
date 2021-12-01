@@ -1,7 +1,7 @@
 const taskService = require('./task.service');
 const schemas = require('./task.schema');
 
-async function boardRoutes(fastify, options, done) {
+async function taskRoutes(fastify, options, done) {
   fastify.get(
     '/boards/:boardId/tasks',
     schemas.getTaskOpts,
@@ -56,4 +56,4 @@ async function boardRoutes(fastify, options, done) {
   done();
 }
 
-module.exports = boardRoutes;
+module.exports = taskRoutes;

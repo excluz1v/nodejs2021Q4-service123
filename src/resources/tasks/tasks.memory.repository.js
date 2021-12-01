@@ -3,21 +3,21 @@ const Task = require('./task.model');
 let tasks = [];
 
 const getAllTasksByBoardId = async (boardId) => {
-  const res = tasks.filter((task) => task.boardId === boardId);
+  const res = await tasks.filter((task) => task.boardId === boardId);
   return res;
 };
 
 const postTasks = async (boardId, taskData) => {
   const res = await getAllTasksByBoardId(boardId);
   if (!res) return false;
-  const newTask = new Task(taskData);
+  const newTask = new Task({ ...taskData, boardId });
   tasks = [...tasks, newTask];
   return Task.toResponse(newTask);
 };
 
 const getTaskByBoardIdAndId = async (boardId, taskId) => {
   let res = tasks.filter((task) => task.boardId === boardId);
-  if (res) res = res.filter((task) => task.id === taskId);
+  if (res) [res] = res.filter((task) => task.id === taskId);
   return res;
 };
 

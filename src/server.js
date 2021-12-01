@@ -6,6 +6,7 @@ const fastifyPlugin = require('./resources/login/auth');
 const { AuthRouter } = require('./resources/login/auth.route');
 const { PORT, AUTH_MODE } = require('./common/config');
 const boardRoutes = require('./resources/boards/boards.router');
+const taskRoutes = require('./resources/tasks/task.router');
 
 fastify.register(swagger, {
   mode: 'static',
@@ -26,6 +27,7 @@ if (AUTH_MODE) {
 
 fastify.register(userRoutes);
 fastify.register(boardRoutes);
+fastify.register(taskRoutes);
 
 const start = async () => {
   try {

@@ -7,12 +7,12 @@ const taskSchema = {
 };
 
 const createTaskSchema = {
-  title: 'string',
-  order: 'number',
-  description: 'string',
-  userId: 'string',
-  boardId: 'string',
-  columnId: 'string',
+  title: { type: 'string' },
+  order: { type: 'number' },
+  description: { type: 'string' },
+  userId: { type: 'string' },
+  boardId: { type: 'string' },
+  columnId: { type: 'string' },
 };
 
 // Options for GET ALL BOARDS
