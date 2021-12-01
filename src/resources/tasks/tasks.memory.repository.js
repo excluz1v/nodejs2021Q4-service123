@@ -7,7 +7,9 @@ const getAllTasksByBoardId = async (boardId) => {
   return res;
 };
 
-const postTasks = async (taskData) => {
+const postTasks = async (boardId, taskData) => {
+  const res = await getAllTasksByBoardId(boardId);
+  if (!res) return false;
   const newTask = new Task(taskData);
   tasks = [...tasks, newTask];
   return Task.toResponse(newTask);
@@ -27,7 +29,7 @@ const updateTask = async (boardId, taskId, newTaskInfo) => {
   return res;
 };
 
-const deleteBoardById = async (boardId, taskId) => {
+const deleteTaskById = async (boardId, taskId) => {
   const res = await getTaskByBoardIdAndId(boardId, taskId);
   if (res) tasks = tasks.filter((task) => task.id !== taskId);
   return res;
@@ -38,5 +40,5 @@ module.exports = {
   postTasks,
   getTaskByBoardIdAndId,
   updateTask,
-  deleteBoardById,
+  deleteTaskById,
 };
