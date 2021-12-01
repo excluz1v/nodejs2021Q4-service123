@@ -60,7 +60,7 @@ const getBoardByIdOpts = {
 };
 
 // Options for PUT BOARD(Updates a Board by ID)
-const putUserOpts = {
+const putBoardOpts = {
   schema: {
     body: {
       type: 'object',
@@ -87,5 +87,5 @@ module.exports = {
   getBoardsOpts,
   postBoardsOpts,
   getBoardByIdOpts,
-  putUserOpts,
+  putBoardOpts,
 };

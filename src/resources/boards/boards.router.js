@@ -26,7 +26,7 @@ async function boardRoutes(fastify, options, done) {
     res.status(201).send(boardInfo);
   });
 
-  fastify.put('/boards/:boardId', schemas.putUserOpts, async (req, res) => {
+  fastify.put('/boards/:boardId', schemas.putBoardOpts, async (req, res) => {
     const { body } = req;
     const { boardId } = req.params;
     const boardInfo = await boardsService.putBoard(boardId, body);
