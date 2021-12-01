@@ -1,5 +1,5 @@
 const uuid = require('uuid');
-const Column = require('../column/column.model');
+const Column = require('../column/Column.model');
 
 class Board {
   constructor({ id = uuid.v4(), title, columns } = {}) {
@@ -10,19 +10,6 @@ class Board {
 
   static createColumn(ArrOfColumns) {
     return [...ArrOfColumns].map((col) => new Column(col));
-  }
-
-  updateColumn(columnId, taskId, taskData) {
-    this.columns = this.columns.map((col) => {
-      if (col.id === columnId) {
-        return col.map((task) => {
-          if (task.id === taskId) return taskData;
-          return task;
-        });
-      }
-      return col;
-    });
-    return this.columns;
   }
 }
 
