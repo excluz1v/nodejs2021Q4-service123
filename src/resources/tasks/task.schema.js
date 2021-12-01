@@ -1,17 +1,17 @@
 const taskSchema = {
   id: { type: 'string' },
   title: { type: 'string' },
-  order: { type: 'number' },
+  order: { type: ['string', 'number'] },
   description: { type: 'string' },
-  userId: { type: 'string' },
+  userId: { type: ['string', 'null'] },
 };
 
 const createTaskSchema = {
   title: { type: 'string' },
   order: { type: 'number' },
   description: { type: 'string' },
-  userId: { type: 'string' },
-  boardId: { type: 'string' },
+  userId: { type: ['string', 'null'] },
+  boardId: { type: ['string', 'null'] },
   columnId: { type: 'string' },
 };
 
@@ -37,11 +37,11 @@ const postTasksOpts = {
       type: 'object',
       required: [
         'title',
-        'columnId',
         'order',
         'description',
         'userId',
         'boardId',
+        'columnId',
       ],
       properties: createTaskSchema,
     },
@@ -73,16 +73,16 @@ const putTaskOpts = {
       type: 'object',
       required: [
         'title',
-        'columnId',
         'order',
         'description',
         'userId',
         'boardId',
+        'columnId',
       ],
       properties: createTaskSchema,
     },
     response: {
-      201: {
+      200: {
         type: 'object',
         properties: taskSchema,
       },

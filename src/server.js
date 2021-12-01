@@ -1,4 +1,4 @@
-const fastify = require('fastify')({ logger: true });
+const fastify = require('fastify')();
 const swagger = require('fastify-swagger');
 const path = require('path');
 const userRoutes = require('./resources/users/user.router');

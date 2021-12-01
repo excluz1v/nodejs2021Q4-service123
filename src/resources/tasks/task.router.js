@@ -8,6 +8,7 @@ async function taskRoutes(fastify, options, done) {
     async (req, res) => {
       const { boardId } = req.params;
       const tasks = await taskService.getAll(boardId);
+      if (!tasks) res.status(400).send('task not found');
       res.send(tasks);
     }
   );
@@ -18,7 +19,6 @@ async function taskRoutes(fastify, options, done) {
     async (req, res) => {
       const { boardId, taskId } = req.params;
       const result = await taskService.getTaskById(boardId, taskId);
-      if (result === false) res.status(400).send('Task not found');
       res.send(result);
     }
   );
@@ -38,6 +38,7 @@ async function taskRoutes(fastify, options, done) {
     '/boards/:boardId/tasks/:taskId',
     schemas.putTaskOpts,
     async (req, res) => {
+      console.log('object');
       const { body } = req;
       const { boardId, taskId } = req.params;
       const taskInfo = await taskService.updateTask(boardId, taskId, body);
