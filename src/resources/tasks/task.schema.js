@@ -12,7 +12,7 @@ const createTaskSchema = {
   description: { type: 'string' },
   userId: { type: ['string', 'null'] },
   boardId: { type: ['string', 'null'] },
-  columnId: { type: 'string' },
+  columnId: { type: ['string', 'null'] },
 };
 
 // Options for GET ALL BOARDS
@@ -30,7 +30,7 @@ const getTaskOpts = {
   },
 };
 
-// Options for POST CREATE BOARDS
+// Options for POST CREATE Task
 const postTasksOpts = {
   schema: {
     body: {
@@ -54,7 +54,7 @@ const postTasksOpts = {
   },
 };
 
-// Options for GET boards/:boardId
+// Options for GET boards/:boardId/tasks/:taskId
 const getTaskByIdOpts = {
   schema: {
     response: {
@@ -66,7 +66,7 @@ const getTaskByIdOpts = {
   },
 };
 
-// Options for PUT BOARD(Updates a Board by ID)
+// Options for PUT Task(Updates a Task by ID)
 const putTaskOpts = {
   schema: {
     body: {

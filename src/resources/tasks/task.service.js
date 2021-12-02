@@ -4,6 +4,7 @@ const getAll = async (boardId) => tasksRepo.getAllTasksByBoardId(boardId);
 
 const postTask = async (boardId, newTaskData) => {
   const newTask = await tasksRepo.postTasks(boardId, newTaskData);
+  // console.log(newTask);
   return newTask;
 };
 

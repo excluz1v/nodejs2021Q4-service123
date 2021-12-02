@@ -14,7 +14,7 @@ async function boardRoutes(fastify, options, done) {
     async (req, res) => {
       const { boardId } = req.params;
       const result = await boardsService.getBoardById(boardId);
-      if (result === false) res.status(400).send('Board not found');
+      if (result === false) res.status(404).send('Board not found');
       res.send(result);
     }
   );
@@ -38,7 +38,7 @@ async function boardRoutes(fastify, options, done) {
     const { boardId } = req.params;
     const result = await boardsService.deleteBoardById(boardId);
     if (result === false) res.status(404).send('Board not found');
-    res.status(204);
+    res.status(204).send();
   });
 
   done();

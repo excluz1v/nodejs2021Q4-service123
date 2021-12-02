@@ -51,7 +51,7 @@ async function userRoutes(fastify, options, done) {
     const { userId } = req.params;
     const result = await usersService.deleteUserById(userId);
     if (result === false) res.status(404).send('User not found');
-    res.status(204);
+    res.status(204).send();
   });
 
   done();

@@ -28,6 +28,7 @@ async function taskRoutes(fastify, options, done) {
     schemas.postTasksOpts,
     async (req, res) => {
       const { body } = req;
+      // console.log(body);
       const { boardId } = req.params;
       const taskInfo = await taskService.postTask(boardId, body);
       res.status(201).send(taskInfo);
@@ -38,7 +39,6 @@ async function taskRoutes(fastify, options, done) {
     '/boards/:boardId/tasks/:taskId',
     schemas.putTaskOpts,
     async (req, res) => {
-      console.log('object');
       const { body } = req;
       const { boardId, taskId } = req.params;
       const taskInfo = await taskService.updateTask(boardId, taskId, body);

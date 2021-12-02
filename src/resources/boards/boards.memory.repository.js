@@ -34,7 +34,7 @@ const updateBoardById = async (id, newBoardInfo) => {
 const deleteBoardById = async (id) => {
   const isExist = await getBoardById(id);
   if (isExist === undefined) return false;
-  boards = await boards.filter((board) => board.id !== id);
+  boards = boards.filter((board) => board.id !== id);
   // todo delete tasks
   await taskRepo.deleteTaskByBoardId(id);
   return true;
