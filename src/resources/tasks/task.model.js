@@ -7,7 +7,7 @@ class Task {
     order,
     description,
     userId,
-    boardId,
+    boardId = uuid.v4(),
     columnId,
   } = {}) {
     this.id = id;

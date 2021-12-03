@@ -39,8 +39,7 @@ const deleteUserById = async (id) => {
   const isExist = await getUserById(id);
   if (isExist === undefined) return false;
   users = await users.filter((user) => user.id !== id);
-  // todo delete task
-  await taskRepo.deleteAssignedUsers(id);
+  taskRepo.deleteAssignedUsers(id);
   return true;
 };
 

@@ -1,27 +1,28 @@
 const tasksRepo = require('./tasks.memory.repository');
 
-const getAll = async (boardId) => tasksRepo.getAllTasksByBoardId(boardId);
+const getAll = (boardId) => {
+  const res = tasksRepo.getAllTasksByBoardId(boardId);
+  return res;
+};
 
-const postTask = async (boardId, newTaskData) => {
-  const newTask = await tasksRepo.postTasks(boardId, newTaskData);
-  // console.log(newTask);
+const postTask = (boardId, newTaskData) => {
+  const newTask = tasksRepo.postTasks(boardId, newTaskData);
   return newTask;
 };
 
-const getTaskById = async (boardId, taskId) => {
-  const result = await tasksRepo.getTaskByBoardIdAndId(boardId, taskId);
-  if (result === undefined) return false;
+const getTaskById = (boardId, taskId) => {
+  const result = tasksRepo.getTaskByBoardIdAndId(boardId, taskId);
   return result;
 };
 
-const updateTask = async (boardId, taskId, newTaskInfo) => {
-  const updatedTask = await tasksRepo.updateTask(boardId, taskId, newTaskInfo);
+const updateTask = (boardId, taskId, newTaskInfo) => {
+  const updatedTask = tasksRepo.updateTask(boardId, taskId, newTaskInfo);
   if (updatedTask === false) return false;
   return updatedTask;
 };
 
-const deleteTaskById = async (boardId, taskId) => {
-  const result = await tasksRepo.deleteTaskById(boardId, taskId);
+const deleteTaskById = (boardId, taskId) => {
+  const result = tasksRepo.deleteTaskById(boardId, taskId);
   return result;
 };
 

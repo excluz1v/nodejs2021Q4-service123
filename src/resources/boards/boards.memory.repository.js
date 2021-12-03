@@ -3,21 +3,21 @@ const taskRepo = require('../tasks/tasks.memory.repository');
 
 let boards = [];
 
-const getAll = async () => boards;
+const getAll = () => boards;
 
-const postBoards = async (boardData) => {
+const postBoards = (boardData) => {
   const newBoard = new Board(boardData);
   boards = [...boards, newBoard];
   return newBoard;
 };
 
-const getBoardById = async (id) => {
-  const result = await boards.find((board) => board.id === id);
+const getBoardById = (id) => {
+  const result = boards.find((board) => board.id === id);
   return result;
 };
 
-const updateBoardById = async (id, newBoardInfo) => {
-  const result = await boards.find((board) => board.id === id);
+const updateBoardById = (id, newBoardInfo) => {
+  const result = boards.find((board) => board.id === id);
   if (result === undefined) return false;
 
   let boardIndex;
@@ -31,12 +31,11 @@ const updateBoardById = async (id, newBoardInfo) => {
   return boards[boardIndex];
 };
 
-const deleteBoardById = async (id) => {
-  const isExist = await getBoardById(id);
+const deleteBoardById = (id) => {
+  const isExist = getBoardById(id);
   if (isExist === undefined) return false;
   boards = boards.filter((board) => board.id !== id);
-  // todo delete tasks
-  await taskRepo.deleteTaskByBoardId(id);
+  taskRepo.deleteTaskByBoardId(id);
   return true;
 };
 

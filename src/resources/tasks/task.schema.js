@@ -1,12 +1,13 @@
 const taskSchema = {
   id: { type: 'string' },
   title: { type: 'string' },
-  order: { type: ['string', 'number'] },
+  order: { type: 'number' },
   description: { type: 'string' },
   userId: { type: ['string', 'null'] },
 };
 
 const createTaskSchema = {
+  id: { type: 'string' },
   title: { type: 'string' },
   order: { type: 'number' },
   description: { type: 'string' },
@@ -23,7 +24,7 @@ const getTaskOpts = {
         type: 'array',
         items: {
           type: 'object',
-          properties: taskSchema,
+          properties: createTaskSchema,
         },
       },
     },
@@ -35,21 +36,8 @@ const postTasksOpts = {
   schema: {
     body: {
       type: 'object',
-      required: [
-        'title',
-        'order',
-        'description',
-        'userId',
-        'boardId',
-        'columnId',
-      ],
+      required: ['title', 'order', 'description', 'userId', 'boardId'],
       properties: createTaskSchema,
-    },
-    response: {
-      201: {
-        type: 'object',
-        properties: taskSchema,
-      },
     },
   },
 };
@@ -57,12 +45,12 @@ const postTasksOpts = {
 // Options for GET boards/:boardId/tasks/:taskId
 const getTaskByIdOpts = {
   schema: {
-    response: {
-      200: {
-        type: 'object',
-        properties: taskSchema,
-      },
-    },
+    // response: {
+    //   200: {
+    //     type: 'object',
+    //     properties: taskSchema,
+    //   },
+    // },
   },
 };
 

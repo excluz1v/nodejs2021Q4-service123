@@ -1,26 +1,29 @@
 const bordsRepo = require('./boards.memory.repository');
 
-const getAll = async () => bordsRepo.getAll();
+const getAll = () => {
+  const res = bordsRepo.getAll();
+  return res;
+};
 
-const postBoard = async (newBoardData) => {
-  const newBoard = await bordsRepo.postBoards(newBoardData);
+const postBoard = (newBoardData) => {
+  const newBoard = bordsRepo.postBoards(newBoardData);
   return newBoard;
 };
 
-const getBoardById = async (id) => {
-  const result = await bordsRepo.getBoardById(id);
+const getBoardById = (id) => {
+  const result = bordsRepo.getBoardById(id);
   if (result === undefined) return false;
   return result;
 };
 
-const putBoard = async (id, newBoardInfo) => {
-  const updatedBoard = await bordsRepo.updateBoardById(id, newBoardInfo);
+const putBoard = (id, newBoardInfo) => {
+  const updatedBoard = bordsRepo.updateBoardById(id, newBoardInfo);
   if (updatedBoard === false) return false;
   return updatedBoard;
 };
 
-const deleteBoardById = async (id) => {
-  const result = await bordsRepo.deleteBoardById(id);
+const deleteBoardById = (id) => {
+  const result = bordsRepo.deleteBoardById(id);
   return result;
 };
 

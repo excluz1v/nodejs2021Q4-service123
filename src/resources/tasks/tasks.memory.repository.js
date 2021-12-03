@@ -2,28 +2,29 @@ const Task = require('./task.model');
 
 let tasks = [];
 
-const getAllTasksByBoardId = async (boardId) => {
-  const res = await tasks.filter((task) => task.boardId === boardId);
+const getAllTasksByBoardId = (boardId) => {
+  const res = tasks.filter((task) => task.boardId === boardId);
   return res;
 };
 
-const postTasks = async (boardId, taskData) => {
-  const res = await getAllTasksByBoardId(boardId);
-  if (!res) return false;
-  // console.log(taskData);
-  const newTask = new Task({ ...taskData, boardId });
-  tasks = [...tasks, newTask];
-  return Task.toResponse(newTask);
+const getTaskByBoardIdAndId = (boardId, taskId) => {
+  const res = tasks.filter(
+    (task) => task.boardId === boardId && task.id === taskId
+  );
+  if (res.length === 0) return false;
+  return res[0];
 };
 
-const updateTask = async (boardId, taskId, newTaskInfo) => {
-  const res = await getAllTasksByBoardId(boardId);
-  console.log(res);
-  if (res === undefined) return false;
+const postTasks = (boardId, taskData) => {
+  const newTask = new Task({ ...taskData, boardId });
+  tasks = [...tasks, newTask];
+  return newTask;
+};
+
+const updateTask = (boardId, taskId, newTaskInfo) => {
   let taskIndex;
   tasks = tasks.map((task, index) => {
-    console.log(task.taskId, taskId);
-    if (task.taskId === taskId) {
+    if (task.id === taskId) {
       taskIndex = index;
       return { ...task, ...newTaskInfo };
     }
@@ -32,24 +33,21 @@ const updateTask = async (boardId, taskId, newTaskInfo) => {
   return tasks[taskIndex];
 };
 
-const deleteTaskById = async (boardId, taskId) => {
-  const res = await getAllTasksByBoardId(boardId, taskId);
+const deleteTaskById = (boardId, taskId) => {
+  const res = getAllTasksByBoardId(boardId, taskId);
   if (res) tasks = tasks.filter((task) => task.id !== taskId);
   return res;
 };
 
-const deleteAssignedUsers = async (userId) => {
+const deleteAssignedUsers = (userId) => {
   tasks = tasks.map((task) => {
-    // console.log(task, userId);
     if (task.userId === userId) {
       const nullUser = { userId: null };
       const updatedTask = { ...task, ...nullUser };
-      console.log(updatedTask);
       return updatedTask;
     }
     return task;
   });
-  return tasks;
 };
 
 const deleteTaskByBoardId = async (boardId) => {
@@ -58,6 +56,7 @@ const deleteTaskByBoardId = async (boardId) => {
 
 module.exports = {
   getAllTasksByBoardId,
+  getTaskByBoardIdAndId,
   postTasks,
   updateTask,
   deleteTaskById,
